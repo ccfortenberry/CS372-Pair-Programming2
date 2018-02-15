@@ -22,3 +22,11 @@ TEST_CASE("Two numbers comma delimimted", "[calculator]") {
 	REQUIRE(add("2098,1001") == 3099);
 	REQUIRE(add("998,11") == 1009);
 }
+
+TEST_CASE("Two numbers newline delimimted", "[calculator]") {
+	REQUIRE(add("1\n1") == 2);
+	REQUIRE(add("3\n0") == 3);
+	REQUIRE(add("17\n105") == 122);
+	REQUIRE(add("2098\n1001") == 3099);
+	REQUIRE(add("998\n11") == 1009);
+}

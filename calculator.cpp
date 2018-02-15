@@ -1,5 +1,9 @@
 #include "calculator.hpp"
 
 int add(const string & number) {
-	return 0;
+	if(number !=""){
+		return std::stoi(number,nullptr);
+	}
+	else
+		return 0;
 }

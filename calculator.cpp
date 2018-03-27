@@ -1,21 +1,43 @@
 #include "calculator.hpp"
+using std::string;
 
-int add(const string & number) {
+int add(const string & number) 
+{
 	string substring = number;
 	int sum = 0;
-	if(substring !=""){
+	string delimiters = ",\n";
+	if(substring !="")
+	{
+		if(substring.size() > 2)
+		{
+			if(substring[0] ==  '/' && substring[1] == '/')
+			{
+				delimiters += substring[2];
+				substring = substring.substr(3, substring.size());
+			}
+		}
 		while(!substring.empty())
 		{
-			if(substring.find_first_of(",\n") != string::npos)
+			int valueToAddToSum = 0;
+			if(substring.find_first_of(delimiters) != string::npos)
 			{
-				sum += stoi(substring.substr(0,substring.find_first_of(",\n")));
-				substring = substring.substr(substring.find_first_of(",\n")+1, substring.size());	
+				valueToAddToSum = stoi(substring.substr(0,substring.find_first_of(delimiters)));
+				substring = substring.substr(substring.find_first_of(delimiters)+1, substring.size());	
 			}
 			else
 			{
-				sum += stoi(substring);
+				valueToAddToSum = stoi(substring);
 				substring = "";
 			}
+			if(valueToAddToSum < 0)
+			{
+				throw std::invalid_argument("A negative number was given to add");
+			}
+			if(valueToAddToSum > 1000)
+			{
+				valueToAddToSum = 0;
+			}
+			sum += valueToAddToSum;
 		}
 	}
 	return sum;

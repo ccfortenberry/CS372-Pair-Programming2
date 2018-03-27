@@ -2,8 +2,8 @@
 #define FILE_CALCULTOR_H_INCLUDED
 
 #include <string>
-using std::string;
+#include  <stdexcept>
 
-int add(const string & number);
+int add(const std::string & number);
 
 #endif

@@ -68,10 +68,21 @@ TEST_CASE("Ignore values greater than 1000", "[calculator]")
 
 TEST_CASE("Single Custom Delimiter", "[calculator]") 
 {
-	REQUIRE(add("//$") == 0);
-	REQUIRE(add("//?17?105") == 122);
-	REQUIRE(add("//{17") == 17);
-	REQUIRE(add("//R1,1R1") == 3);
-	REQUIRE(add("//j3j0\n5") == 8);
-	REQUIRE(add("//;17;105,20") == 142);
+	REQUIRE(add("//$\n0") == 0);
+	REQUIRE(add("//?\n17?105") == 122);
+	REQUIRE(add("//{\n17{17") == 34);
+	REQUIRE(add("//f\n1,1f1") == 3);
+	REQUIRE(add("//@\n5@3") == 8);
+	REQUIRE(add("//;\n17;105,20") == 142);
+}
+
+TEST_CASE("Multiple Custom Delimiters", "[calculator]") 
+{
+	REQUIRE(add("//abcdefghijklmnopqrstuvwxyz\n1a1b1c1d1e1f1g1h1i1j1k1l1m1n1o1p1q1r1s1t1u1v1w1x1y1z1") == 27);
+}
+
+TEST_CASE("Bad Custom Delimiters", "[calculator]") 
+{
+	CHECK_THROWS(add("//#1,2,3,4,5"));
+	CHECK_THROWS(add("//abcdefghijklmnopq"));
 }
